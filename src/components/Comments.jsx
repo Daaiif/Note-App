@@ -4,12 +4,16 @@ import { FirebaseContext } from '../context/firebase/firebaseContext';
 export const Comments = ({ postId }) => {
 
   const {comments, fetchComments} = useContext(FirebaseContext)
+
   
   useEffect(() => {
-    fetchComments()
+    async function fetchData() {
+      await fetchComments()
+    }
+
+    fetchData()
     // eslint-disable-next-line
   }, [])
-
 
   if (comments === undefined) return null
 
@@ -25,6 +29,7 @@ export const Comments = ({ postId }) => {
         >
           <strong>{item.author}</strong>
           <p>{item.content}</p>
+          <span>{item.date}</span>
         </li>
       ))}
     </ul>

@@ -23,16 +23,12 @@ export const FirebaseState = ({children}) => {
     showLoader()
     const res = await axios.get(`${url}/notes.json`)
 
-    let payload
+    let payload = Object.keys(res.data).map(key => ({
+      ...res.data[key],
+      id: key
+    }))
 
-    if (res.data) {
-      payload = Object.keys(res.data).map(key => ({
-        ...res.data[key],
-        id: key
-      }))
-    } else {
-      payload = []
-    }
+    if (!res.data) payload = []
 
     dispatch({type: FETCH_NOTES, payload})
   }
@@ -64,7 +60,7 @@ export const FirebaseState = ({children}) => {
       postId: id,
       author,
       content,
-      date: new Date().toJSON()
+      date: new Date().toLocaleDateString()
     }
 
     axios.post(`${url}/comments.json`, comment)
@@ -80,17 +76,12 @@ export const FirebaseState = ({children}) => {
   const fetchComments = async () => {
     const res = await axios.get(`${url}/comments.json`)
 
-    let payload 
+    let payload = Object.keys(res.data).map(key => ({
+      ...res.data[key],
+      id: key
+    }))
 
-    
-    if (res.data) {
-      payload = Object.keys(res.data).map(key => ({
-        ...res.data[key],
-        id: key
-      }))
-    } else {
-      payload = []
-    }
+    if (!res.data) return payload = []
 
     dispatch({type: FETCH_COMMENTS, payload})
   }

@@ -1,8 +1,27 @@
-import React from 'react';
+import React, {useContext, useEffect } from 'react';
+
+import { Loader } from '../components/Loader';
+import { Notes } from '../components/Notes'
+import { AlertContext } from '../context/alert/alertContext';
+import { FirebaseContext } from '../context/firebase/firebaseContext';
+
 
 export const View = () => {
+  const { loading, notes, fetchNotes, removeNote} = useContext(FirebaseContext)
+  const { show } = useContext(AlertContext)
+
+  useEffect(() => {
+    fetchNotes()
+  // eslint-disable-next-line
+  }, [])
+
 
   return (
-    <h1>View page</h1>
+    <>
+      {loading 
+        ? <Loader />
+        : <Notes notes={notes} onRemove={removeNote} showAlert={show}/>
+      }
+    </>
   )
 }

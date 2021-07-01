@@ -16,6 +16,8 @@ export const CommentForm = ({ id }) => {
     e.preventDefault();
 
     addComment(author, content, id)
+    setContent('')
+    setAuthor('')
   }
 
   return (
