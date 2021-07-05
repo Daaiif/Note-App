@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FirebaseContext } from '../context/firebase/firebaseContext';
+import { FirebaseContext } from '../context/firebase/FirebaseProvider';
 
 export const CommentForm = ({ id }) => {
   const [author, setAuthor] = useState('')

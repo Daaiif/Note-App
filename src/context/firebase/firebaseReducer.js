@@ -1,6 +1,6 @@
 import { ADD_COMMENTS, ADD_NOTES, FETCH_COMMENTS, FETCH_NOTES, REMOVE_NOTES, SHOW_LOADER } from '../type';
 
-const hendlers = {
+const handlers = {
   [SHOW_LOADER]: (state) => ({state, loading: true}),
   [ADD_NOTES]: (state, {payload}) => ({
     ...state,
@@ -20,7 +20,7 @@ const hendlers = {
 }
 
 export const firebaseReducer = (state, action) => {
-  const handle = hendlers[action.type] || hendlers.DEFAULT
+  const handle = handlers[action.type] || handlers.DEFAULT
 
   return handle(state, action)
 }

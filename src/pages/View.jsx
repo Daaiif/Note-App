@@ -3,7 +3,7 @@ import React, {useContext, useEffect } from 'react';
 import { Loader } from '../components/Loader';
 import { Notes } from '../components/Notes'
 import { AlertContext } from '../context/alert/alertContext';
-import { FirebaseContext } from '../context/firebase/firebaseContext';
+import { FirebaseContext } from '../context/firebase/FirebaseProvider';
 
 
 export const View = () => {

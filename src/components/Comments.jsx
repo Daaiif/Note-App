@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { FirebaseContext } from '../context/firebase/firebaseContext';
+import { FirebaseContext } from '../context/firebase/FirebaseProvider';
 
 export const Comments = ({ postId }) => {
 

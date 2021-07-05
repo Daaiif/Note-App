@@ -7,12 +7,12 @@ import { View } from './pages/View';
 import { Navbar } from './components/Navbar';
 import { Alert } from './components/Alert'
 import { AlertState } from './context/alert/AlertState'
-import { FirebaseState } from './context/firebase/FirebaseState';
+import { FirebaseProvider } from './context/firebase/FirebaseProvider';
 
 
 function App() {
   return (
-    <FirebaseState>
+    <FirebaseProvider>
       <AlertState>
         <BrowserRouter>
           <div className="App">
@@ -28,7 +28,7 @@ function App() {
           </div>
         </BrowserRouter>
       </AlertState>
-    </FirebaseState>
+    </FirebaseProvider>
   );
 }
 
