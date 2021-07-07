@@ -8,4 +8,5 @@ export const REMOVE_NOTES = 'REMOVE_NOTES'
 
 export const ADD_COMMENTS = 'ADD_COMMENTS'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
+export const REMOVE_COMMENTS = 'REMOVE_COMMENTS'
 

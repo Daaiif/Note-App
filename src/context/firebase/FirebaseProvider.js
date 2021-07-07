@@ -1,22 +1,21 @@
 import axios from 'axios';
 import React, { useReducer, createContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { ADD_COMMENTS, ADD_NOTES, FETCH_COMMENTS, FETCH_NOTES, REMOVE_NOTES, SHOW_LOADER } from '../type';
+import { ADD_COMMENTS, ADD_NOTES, FETCH_COMMENTS, FETCH_NOTES, REMOVE_COMMENTS, REMOVE_NOTES, SHOW_LOADER } from '../type';
 
 import { firebaseReducer } from './firebaseReducer'
 
 const url = process.env.REACT_APP_DB_URL
 
+const initialValue = {
+  notes: [],
+  comments: [],
+  loading: false 
+}
 
-export const FirebaseContext = createContext();
+export const FirebaseContext = createContext(initialValue);
 
 export const FirebaseProvider = ({children}) => {
-  const initialValue = {
-    notes: [],
-    comments: [],
-    loading: false 
-  }
-
   const [state, dispatch] = useReducer(firebaseReducer, initialValue)
 
   const showLoader = () => dispatch({type: SHOW_LOADER})
@@ -63,7 +62,7 @@ export const FirebaseProvider = ({children}) => {
 
   const addComment = (author, content, id) => {
     const comment = {
-      postId: id,
+      noteId: id,
       author,
       content,
       date: new Date().toLocaleDateString()
@@ -96,6 +95,12 @@ export const FirebaseProvider = ({children}) => {
     dispatch({type: FETCH_COMMENTS, payload})
   }
 
+  const removeComments = async (id) => {
+    const res = await axios.get(`${url}/comments.json`)
+
+    dispatch({type: REMOVE_COMMENTS, payload: id})
+  }
+
   return (
     <FirebaseContext.Provider value={{
       showLoader,
@@ -106,7 +111,8 @@ export const FirebaseProvider = ({children}) => {
       notes: state.notes,
       comments: state.comments,
       addComment,
-      fetchComments
+      fetchComments,
+      removeComments
     }}>
       {children}
     </FirebaseContext.Provider>

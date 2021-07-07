@@ -7,7 +7,7 @@ import { FirebaseContext } from '../context/firebase/FirebaseProvider';
 
 
 export const View = () => {
-  const { loading, notes, fetchNotes, removeNote} = useContext(FirebaseContext)
+  const { loading, notes, fetchNotes, removeNote, removeComments} = useContext(FirebaseContext)
   const { show } = useContext(AlertContext)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const View = () => {
     <>
       {loading 
         ? <Loader />
-        : <Notes notes={notes} onRemove={removeNote} showAlert={show}/>
+        : <Notes notes={notes || []} onRemove={removeNote} showAlert={show} onRemoveComments={removeComments} />
       }
     </>
   )

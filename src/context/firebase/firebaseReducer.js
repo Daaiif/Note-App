@@ -1,4 +1,4 @@
-import { ADD_COMMENTS, ADD_NOTES, FETCH_COMMENTS, FETCH_NOTES, REMOVE_NOTES, SHOW_LOADER } from '../type';
+import { ADD_COMMENTS, ADD_NOTES, FETCH_COMMENTS, FETCH_NOTES, REMOVE_COMMENTS, REMOVE_NOTES, SHOW_LOADER } from '../type';
 
 const handlers = {
   [SHOW_LOADER]: (state) => ({state, loading: true}),
@@ -16,6 +16,10 @@ const handlers = {
     comments: [...state.comments, payload]
   }),
   [FETCH_COMMENTS]: (state, {payload}) => ({...state, comments: payload, loading: false}),
+  [REMOVE_COMMENTS]: (state, {payload}) => ({
+    ...state,
+    comments: state.comments.filter((comment => comment.postId !== payload))
+  }),
   DEFAULT: (state) => state
 }
 

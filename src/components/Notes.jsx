@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 
-import { Comments } from './Comments';
+import { Comments } from './CommentList';
 import { CommentForm } from './CommentForm';
 
-export const Notes = ({ notes, onRemove, showAlert }) => {
-  const [selectedNote, setSelectedNote] = useState(null)
+export const Notes = ({ notes, onRemove, showAlert, onRemoveComments }) => {
+  console.log("render")
 
   return (
     <ul className="list-goup ps-0 notes">
@@ -17,7 +17,7 @@ export const Notes = ({ notes, onRemove, showAlert }) => {
             <strong>{note.name}</strong>
             <button
               className="btn btn-outline-danger btn-sm"
-              onClick={() => {onRemove(note.id); showAlert('The Note was deleted success', 'success')}}
+              onClick={() => {onRemove(note.id); onRemoveComments(note.id); showAlert('The Note was deleted success', 'success')}}
             >&times;</button>
           </div>
           <p className="content">{note.content}</p>
@@ -26,21 +26,7 @@ export const Notes = ({ notes, onRemove, showAlert }) => {
           
           <CommentForm id={note.id} />
 
-          <div className="d-flex justify-content-end mb-3">
-            <button
-              className="btn btn-outline-primary"
-              onClick={() => {
-                setSelectedNote(note.id)
-              }}
-            >
-              Comments
-            </button>
-          </div>
-          {selectedNote === note.id
-            ? <Comments postId={note.id}/>
-            : null
-          }
-          
+          <Comments noteId={note.id}/>
         </li>
       ))}
     </ul>
